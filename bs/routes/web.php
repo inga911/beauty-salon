@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BeautySalonController as BSC;
+use App\Http\Controllers\ServiceController as SC;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,7 +19,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::prefix('back')->name('back-')->group(function () {
+Route::prefix('salon')->name('salon-')->group(function () {
     Route::get('/', [BSC::class, 'index'])->name('index');
     Route::get('/create', [BSC::class, 'create'])->name('create');
     Route::post('/store', [BSC::class, 'store'])->name('store');
@@ -26,6 +27,16 @@ Route::prefix('back')->name('back-')->group(function () {
     Route::get('/edit/{beautySalon}', [BSC::class, 'edit'])->name('edit');
     Route::put('/edit/{beautySalon}', [BSC::class, 'update'])->name('update');
     Route::delete('/delete/{beautySalon}', [BSC::class, 'destroy'])->name('delete');
+});
+
+Route::prefix('service')->name('service-')->group(function () {
+    Route::get('/', [SC::class, 'index'])->name('index');
+    Route::get('/create', [SC::class, 'create'])->name('create');
+    Route::post('/store', [SC::class, 'store'])->name('store');
+    Route::get('/{service}', [SC::class, 'show'])->name('show');
+    Route::get('/edit/{service}', [SC::class, 'edit'])->name('edit');
+    Route::put('/edit/{service}', [SC::class, 'update'])->name('update');
+    Route::delete('/delete/{service}', [SC::class, 'destroy'])->name('delete');
 });
 Auth::routes();
 

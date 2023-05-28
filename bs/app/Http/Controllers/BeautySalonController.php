@@ -33,7 +33,7 @@ class BeautySalonController extends Controller
         $bs->phone_number = $request->phone_number;
         $bs->save();
         return redirect()
-            ->route('back-index')
+            ->route('salon-index')
             ->with('ok', 'New salon was added');
     }
 
@@ -60,7 +60,7 @@ class BeautySalonController extends Controller
         $beautySalon->phone_number = $request->phone_number;
         $beautySalon->save();
         return redirect()
-            ->route('back-index')
+            ->route('salon-index')
             ->with('ok', 'The salon was edited');
     }
 
@@ -69,7 +69,7 @@ class BeautySalonController extends Controller
          $beautySalon->delete();
 
         return redirect()
-                ->route('back-index')
+                ->route('salon-index')
                 ->with('ok', 'Salon was deleted successfully');
     }
 }

@@ -4,7 +4,7 @@
     <h1>edit </h1>
     <div class="form" style="border: 1px solid black; ">
 
-        <form action="{{ route('back-update', $beautySalon) }}" method="post">
+        <form action="{{ route('salon-update', $beautySalon) }}" method="post">
             <div class="mb-3">
                 <label class="form-label">Salon name</label>
                 <input type="text" class="form-control" name="salon_name" value="{{old('salon_name', $beautySalon->salon_name)}}">

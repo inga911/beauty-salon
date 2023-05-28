@@ -21,7 +21,7 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('123'),
         ]);
 
-        foreach([
+        foreach ([
             'Beauty Lab',
             'Touch & Care',
             'Beauty Base',
@@ -32,5 +32,16 @@ class DatabaseSeeder extends Seeder
                 'salon_name' => $salon_name,
             ]);
         }
-}
+
+        foreach ([
+            'Hair coloring',
+            'Hair cut',
+            'Nail services',
+            'Eyebrow and eyelash services'
+        ] as $service_title) {
+            DB::table('services')->insert([
+                'service_title' => $service_title,
+            ]);
+        }
+    }
 }

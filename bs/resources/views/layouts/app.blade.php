@@ -35,11 +35,26 @@
                                 Salons
                             </a>
                             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="{{ route('back-index') }}">
+                                <a class="dropdown-item" href="{{ route('salon-index') }}">
                                     Salons list
                                 </a>
-                                <a class="dropdown-item" href="{{ route('back-create') }}">
+                                <a class="dropdown-item" href="{{ route('salon-create') }}">
                                     Add New Salon
+                                </a>
+                            </div>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav me-auto">
+                        <li class="nav-item dropdown">
+                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                Services
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="{{ route('service-index') }}">
+                                    Services list
+                                </a>
+                                <a class="dropdown-item" href="{{ route('service-create') }}">
+                                    Add New Service
                                 </a>
                             </div>
                         </li>

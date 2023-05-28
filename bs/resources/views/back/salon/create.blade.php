@@ -4,7 +4,7 @@
     <h1>create - prideti nauja salona i sarasa</h1>
     <div class="form" style="border: 1px solid black; ">
 
-        <form action="{{ route('back-store') }}" method="post">
+        <form action="{{ route('salon-store') }}" method="post">
             <div class="mb-3">
                 <label class="form-label">Salon name</label>
                 <input type="text" class="form-control" name="salon_name">
