@@ -1,9 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
-show puslapis
 
-    <h1>show</h1>
+
+    <h1>show - service</h1>
     <div class="form" style="border: 1px solid black; width:50%">
 
             <div class="mb-3">

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <h1>create - prideti nauja salona i sarasa</h1>
+    <h1>create - add new salon</h1>
     <div class="form" style="border: 1px solid black; ">
 
         <form action="{{ route('salon-store') }}" method="post">

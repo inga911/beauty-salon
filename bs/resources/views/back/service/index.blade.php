@@ -2,14 +2,12 @@
 
 @section('content')
 
-<h1>index - paslaugu sarasas</h1>
+<h1>index - list of services</h1>
 
 @foreach ($service as $s)
 <div class="card mb-3" style="max-width: 740px; margin-left: 5%">
     <div class="row g-0">
-      <div class="col-md-4">
-        <img src="" class="img-fluid rounded-start" alt="No image yet">
-      </div>
+
       <div class="col-md-8">
         <div class="card-body">
           <h5 class="card-title">Service: {{$s->service_title}}</h5>

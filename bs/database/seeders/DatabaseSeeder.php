@@ -30,17 +30,24 @@ class DatabaseSeeder extends Seeder
         ] as $salon_name) {
             DB::table('beauty_salons')->insert([
                 'salon_name' => $salon_name,
+                'address' => $faker->address,
+                'city' => $faker->city,
+                'phone_number' => '+370' . rand(00, 99) . rand(00, 99) . rand(00, 99) . rand(00, 99),
+
             ]);
         }
 
-        foreach ([
-            'Hair coloring',
-            'Hair cut',
-            'Nail services',
-            'Eyebrow and eyelash services'
-        ] as $service_title) {
+        foreach(range(1, 5) as $_) {
             DB::table('services')->insert([
-                'service_title' => $service_title,
+                'service_title' => $faker->catchPhrase,
+                'duration' => $faker->randomDigit,
+                'price' => $faker->randomDigit
+            ]);
+        }
+        foreach(range(1, 5) as $_) {
+            DB::table('specialists')->insert([
+                'name' => $faker->firstName,
+                'surname' => $faker->lastName,
             ]);
         }
     }

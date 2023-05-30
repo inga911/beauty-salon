@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <h1>create - prideti nauja paslauga</h1>
+    <h1>create - add new service</h1>
     <div class="form" style="border: 1px solid black; ">
 
         <form action="{{ route('service-store') }}" method="post">

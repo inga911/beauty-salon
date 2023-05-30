@@ -10,4 +10,9 @@ class BeautySalon extends Model
     use HasFactory;
     protected $fillable = ['salon_name', 'address', 'phone_number'];
     public $timestamps = false;
+
+    public function specialists()
+    {
+        $this->hasMany(Specialist::class);
+    }
 }

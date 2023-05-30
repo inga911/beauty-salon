@@ -2,13 +2,19 @@
 
 @section('content')
 
-<h1>index - salonu sarasas</h1>
+<h1>index - list of salons</h1>
 
 @foreach ($beautySalons as $bs)
 <div class="card mb-3" style="max-width: 740px; margin-left: 5%">
     <div class="row g-0">
       <div class="col-md-4">
-        <img src="" class="img-fluid rounded-start" alt="No image yet">
+
+        @if ($bs->photo)
+        <img src="{{ asset('img').'/'.$bs->photo }}" class="img-fluid rounded-start" alt="No image yet">
+    @else
+        <img src="{{ asset('img').'/gallery-icon.png'}}" class="img-fluid rounded-start" alt="No image yet">
+    @endif
+
       </div>
       <div class="col-md-8">
         <div class="card-body">

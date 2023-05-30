@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <h1>edit </h1>
+    <h1>edit -salon </h1>
     <div class="form" style="border: 1px solid black; ">
 
         <form action="{{ route('salon-update', $beautySalon) }}" method="post">
