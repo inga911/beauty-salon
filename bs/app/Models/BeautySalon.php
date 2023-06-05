@@ -13,6 +13,6 @@ class BeautySalon extends Model
 
     public function specialists()
     {
-        $this->hasMany(Specialist::class);
+        return $this->hasMany(Specialist::class, 'beauty_salon_id');
     }
 }

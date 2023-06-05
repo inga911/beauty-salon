@@ -11,6 +11,7 @@ class BeautySalonController extends Controller
     public function index()
     {
         $beautySalons = BeautySalon::all();
+        
         return view('back.salon.index', [
             'beautySalons' => $beautySalons
         ]);

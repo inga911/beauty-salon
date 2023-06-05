@@ -5,15 +5,27 @@ namespace App\Http\Controllers;
 use App\Models\Specialist;
 use App\Http\Controllers\Controller;
 use App\Models\BeautySalon;
+use App\Models\Service;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
 class SpecialistController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $specialists = Specialist::all();
-        return view('back.specialist.index', [
+
+        $specialists->map(function($s) use($request) {
+            if (!$request->user()) {
+                $showVoteButton = false;
+            } else {
+                $rates = collect($s->rates);
+                $showVoteButton = $rates->first(fn($r) => $r['userId'] == $request->user()->id) ? false : true;
+            }
+            $s->votes = count($s->rates);
+            $s->showVoteButton = $showVoteButton;
+        });
+            return view('back.specialist.index', [
             'specialists' => $specialists
         ]);
     }
@@ -21,10 +33,12 @@ class SpecialistController extends Controller
     public function create()
     {
         $specialists = Specialist::all();
-        // $bs = BeautySalon::all();
+        $beautySalons = BeautySalon::all();
+        $services = Service::all();
         return view('back.specialist.create', [
             'specialists' => $specialists,
-            // 'bs' => $bs
+            'beautySalons' => $beautySalons,
+            'services' => $services
         ]);
     }
 
@@ -33,6 +47,7 @@ class SpecialistController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required|min:3|max:20',
             'surname' => 'required|min:3|max:20',
+            'service_id' => 'required|exists:services,id',
         ]);
 
         if ($validator->fails()) {
@@ -45,7 +60,8 @@ class SpecialistController extends Controller
         $specialist = new Specialist;
         $specialist->name = $request->name;
         $specialist->surname = $request->surname;
-        // $specialist->beauty_salon_id = $request->beauty_salon_id;
+        $specialist->beauty_salon_id = $request->beauty_salon_id ?? 0;
+        $specialist->service_id =  $request->service_id;
 
         $photo = $request->file('photo');
         if ($photo) {
@@ -97,22 +113,52 @@ class SpecialistController extends Controller
             ->with('ok', 'specialist was deleted successfully');
     }
 
-    public function salons(Request $request)
+    public function vote(Request $request, Specialist $specialist)
     {
-        $beautySalons = BeautySalon::where('id', $request->beautySalons)->first()->beautySalons;
+        if ($request->user()) {
+            $userId = $request->user()->id;
+            $rates = collect($specialist->rates);
 
-        $html = view('back.specialist.salons')
-            ->with(['beautySalons' => $beautySalons])
-            ->render();
+            if (!$rates->first(fn($r) => $r['userId'] == $userId) && $request->star) {
+                $stars = count($request->star);
+                
+                $userRate = [
+                    'userId' => $userId,
+                    'rate' => $stars
+                ];
+                $rates->add($userRate);
+                $rate = round($rates->sum('rate') / $rates->count(), 2);
 
-        return response()->json([
-            'html' => $html,
-            'message' => 'OK',
-        ]);
+                $specialist->update([
+                    'rate' => $rate,
+                    'rates' => $rates,
+                ]);
+                
+            }
+
+            return redirect()->back();
+        }
+        
     }
 
-    public function salonName(Request $request, BeautySalon $beautySalon)
-    {
-        return response()->json([]);
-    }
+    // public function salons(Request $request)
+    // {
+    //     $beautySalons = BeautySalon::where('id', $request->beautySalons)->first()->beautySalons;
+
+    //     $html = view('back.specialist.salons')
+    //         ->with(['beautySalons' => $beautySalons])
+    //         ->render();
+
+    //     return response()->json([
+    //         'html' => $html,
+    //         'message' => 'OK',
+    //     ]);
+    // }
+
+    // public function salonName(Request $request, BeautySalon $beautySalon)
+    // {
+    //     return response()->json([]);
+    // }
+
+
 }

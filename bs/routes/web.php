@@ -47,11 +47,12 @@ Route::prefix('specialist')->name('specialist-')->group(function () {
     Route::get('/{specialist}', [SPEC::class, 'show'])->name('show');
     Route::get('/salons', [SPEC::class, 'salons'])->name('salons'); 
     Route::get('/salon-name', [SPEC::class, 'salonName'])->name('salon-name');
-    
+    Route::put('/vote/{specialist}', [SPEC::class, 'vote'])->name('vote');
     Route::get('/edit/{specialist}', [SPEC::class, 'edit'])->name('edit');
     Route::put('/edit/{specialist}', [SPEC::class, 'update'])->name('update');
     Route::delete('/delete/{specialist}', [SPEC::class, 'destroy'])->name('delete');
 });
+
 
 Auth::routes();
 

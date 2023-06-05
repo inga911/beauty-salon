@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('service_title', 300);
             $table->string('duration', 10)->default('60');
-            $table->decimal('price', 4, 2)->default(20);
+            $table->decimal('price', 8, 2)->default(20);
         });
     }
 

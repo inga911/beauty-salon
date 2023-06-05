@@ -15,8 +15,10 @@
             <div class="mb-3">
                 <label class="form-label">Assigned Salon: {{ $specialist->salon ? $specialist->salon->salon_name : 'Not assigned' }}</label>
              </div>
+             <div class="mb-3">
+                <label class="form-label">Assigned Service: {{ $specialist->service ? $specialist->service->service_title : 'Not assigned' }}</label>
+             </div>
             <div class="mb-3">
-                {{-- <label class="form-label">specialist profile picture: {{ $specialist->photo }}</label> --}}
                 <img src="{{ asset('img').'/'.$specialist->photo }}" alt="Profile picture" style="width: 250px; height: 250px, object-fit: cover;">
             </div>
 

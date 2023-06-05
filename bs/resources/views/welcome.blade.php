@@ -31,6 +31,8 @@
                 </div>
             @endif
                 <h1>Welcome page</h1>
+                    <a class="nav-link" href="{{ route('specialist-index') }}">Spec index</a>
+               
         </div>
     </body>
 </html>

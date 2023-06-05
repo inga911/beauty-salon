@@ -24,6 +24,12 @@
           <p class="card-text"><small class="text-muted">phone {{$bs->phone_number}}</small></p>
         </div>
       </div>
+      <h3>Specialists:</h3>
+        <ul>
+            @foreach ($bs->specialists as $specialist)
+                <li><a href="{{route('specialist-show', $specialist)}}">{{$specialist->name}} {{$specialist->surname}}</a></li>
+            @endforeach
+        </ul>
     </div>
     <a href="{{ route('salon-show', $bs) }}">Show</a>
     <a href="{{ route('salon-edit', $bs) }}">Edit</a>
