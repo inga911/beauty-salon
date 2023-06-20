@@ -18,6 +18,25 @@ class DatabaseSeeder extends Seeder
         DB::table('users')->insert([
             'name' => 'Admin',
             'email' => 'admin@gmail.com',
+            'role' => 1,
+            'password' => Hash::make('123'),
+        ]);
+        DB::table('users')->insert([
+            'name' => 'Client',
+            'email' => 'client@gmail.com',
+            'role' => 10,
+            'password' => Hash::make('123'),
+        ]);
+        DB::table('users')->insert([
+            'name' => 'Client2',
+            'email' => 'client2@gmail.com',
+            'role' => 10,
+            'password' => Hash::make('123'),
+        ]);
+        DB::table('users')->insert([
+            'name' => 'Client3',
+            'email' => 'client3@gmail.com',
+            'role' => 10,
             'password' => Hash::make('123'),
         ]);
 
@@ -40,6 +59,7 @@ class DatabaseSeeder extends Seeder
         foreach(range(1, 5) as $_) {
             DB::table('services')->insert([
                 'service_title' => $faker->catchPhrase,
+                'service_description' => $faker->text($maxNbChars = 200),
                 'duration' => $faker->randomDigit,
                 'price' => $faker->randomDigit
             ]);

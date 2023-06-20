@@ -2,9 +2,9 @@
 
 @section('content')
     <h1>create - add new salon</h1>
-    <div class="form" style="border: 1px solid black; ">
+    <div class="form">
 
-        <form action="{{ route('salon-store') }}" method="post">
+        <form action="{{ route('salon-store') }}" method="post" enctype="multipart/form-data">
             <div class="mb-3">
                 <label class="form-label">Salon name</label>
                 <input type="text" class="form-control" name="salon_name">
@@ -21,6 +21,7 @@
                 <label class="form-label">Salon phone number</label>
                 <input type="text" class="form-control" name="phone_number">
             </div>
+           
             <button type="submit" class="btn btn-primary">Submit</button>
             @csrf
         </form>

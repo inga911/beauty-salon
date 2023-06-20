@@ -4,11 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Service;
 
 class Specialist extends Model
 {
     use HasFactory;
-    protected $fillable = ['name', 'surname', 'photo', 'beauty_salon_id', 'rate', 'rates'];
+    protected $fillable = ['name', 'surname', 'photo', 'beauty_salon_id', 'rate', 'rates', 'service_title'];
     public $timestamps = false;
 
     protected $casts = [

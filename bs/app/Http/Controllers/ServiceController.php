@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Service;
+use App\Models\Specialist;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -12,7 +13,7 @@ class ServiceController extends Controller
     public function index()
     {
         $service = Service::all();
-        return view('back.service.index', [
+        return view('front.service.index', [
             'service' => $service
         ]);
     }
@@ -20,7 +21,7 @@ class ServiceController extends Controller
     public function create()
     {
         $service = Service::all();
-        return view('back.service.create', [
+        return view('front.service.create', [
             'service' => $service
         ]);
     }
@@ -52,14 +53,14 @@ class ServiceController extends Controller
 
     public function show(Service $service)
     {
-        return view('back.service.show', [
+        return view('front.service.show', [
             'service' => $service
         ]);
     }
 
     public function edit(Service $service)
     {
-        return view('back.service.edit', [
+        return view('front.service.edit', [
             'service' => $service
         ]);
     }
@@ -96,5 +97,32 @@ class ServiceController extends Controller
         return redirect()
                 ->route('service-index')
                 ->with('ok', 'service was deleted successfully');
+    }
+    public function vote(Request $request, Specialist $specialist)
+    {
+        if ($request->user()) {
+            $userId = $request->user()->id;
+            $rates = collect($specialist->rates);
+
+            if (!$rates->first(fn($r) => $r['userId'] == $userId) && $request->star) {
+                $stars = count($request->star);
+                
+                $userRate = [
+                    'userId' => $userId,
+                    'rate' => $stars
+                ];
+                $rates->add($userRate);
+                $rate = round($rates->sum('rate') / $rates->count(), 2);
+
+                $specialist->update([
+                    'rate' => $rate,
+                    'rates' => $rates,
+                ]);
+                
+            }
+
+            return redirect()->back();
+        }
+        
     }
 }

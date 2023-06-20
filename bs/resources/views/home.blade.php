@@ -14,7 +14,13 @@
                         </div>
                     @endif
 
-                    {{ __('You are logged in!') }}
+                  <h3>Choose salon</h3>
+                  <select class="form-select" name="beauty_salon_id" >
+                    <option value="0">Select the salon</option>
+                    @foreach ($beautySalons as $beautySalon)
+                        <option value="{{ $beautySalon->id }}">{{ $beautySalon->salon_name }}</option>
+                    @endforeach
+                </select>
                 </div>
             </div>
         </div>

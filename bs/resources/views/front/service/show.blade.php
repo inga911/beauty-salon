@@ -7,7 +7,7 @@
     <div class="form" style="border: 1px solid black; width:50%">
 
             <div class="mb-3">
-                <label class="form-label">Service name: {{ $service->service_title }}</label>
+                <label class="form-label">Service title: {{ $service->service_title }}</label>
             </div>
             <div class="mb-3">
                 <label class="form-label">Service duration: {{ $service->duration }}</label>

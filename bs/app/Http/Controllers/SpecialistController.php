@@ -13,8 +13,8 @@ class SpecialistController extends Controller
 {
     public function index(Request $request)
     {
-        $specialists = Specialist::all();
-
+        $specialists = Specialist::with('service')->get();
+    
         $specialists->map(function($s) use($request) {
             if (!$request->user()) {
                 $showVoteButton = false;
@@ -24,18 +24,24 @@ class SpecialistController extends Controller
             }
             $s->votes = count($s->rates);
             $s->showVoteButton = $showVoteButton;
+            $s->service_title = $s->service->service_title ?? 'Not assigned';
+            return $s;
         });
-            return view('back.specialist.index', [
-            'specialists' => $specialists
+    
+        return view('front.specialist.index', [
+            'specialists' => $specialists,
         ]);
     }
+    
+    
+
 
     public function create()
     {
         $specialists = Specialist::all();
         $beautySalons = BeautySalon::all();
         $services = Service::all();
-        return view('back.specialist.create', [
+        return view('front.specialist.create', [
             'specialists' => $specialists,
             'beautySalons' => $beautySalons,
             'services' => $services
@@ -61,7 +67,8 @@ class SpecialistController extends Controller
         $specialist->name = $request->name;
         $specialist->surname = $request->surname;
         $specialist->beauty_salon_id = $request->beauty_salon_id ?? 0;
-        $specialist->service_id =  $request->service_id;
+        $specialist->service_id =  $request->service_id ?? 0;
+        // $specialist->service_title = Service::findOrFail($request->service_id)->service_title;
 
         $photo = $request->file('photo');
         if ($photo) {
@@ -79,30 +86,62 @@ class SpecialistController extends Controller
 
 
 
-    public function show(Specialist $specialist)
+    public function show(Specialist $specialist, Request $request)
     {
-        return view('back.specialist.show', [
+        $specialists = Specialist::all();
+        $specialists->map(function($s) use($request) {
+            if (!$request->user()) {
+                $showVoteButton = false;
+            } else {
+                $rates = collect($s->rates);
+                $showVoteButton = $rates->first(fn($r) => $r['userId'] == $request->user()->id) ? false : true;
+            }
+            $s->votes = count($s->rates);
+            $s->showVoteButton = $showVoteButton;
+            return $s;
+        });
+        return view('front.specialist.show', [
             'specialist' => $specialist
         ]);
     }
 
     public function edit(Specialist $specialist)
     {
-        return view('back.specialist.edit', [
+        $beautySalons = BeautySalon::all();
+        $services = Service::all();
+        return view('front.specialist.edit', [
             'specialist' => $specialist,
+            'beautySalons' => $beautySalons,
+            'services' => $services,
         ]);
     }
 
     public function update(Request $request, Specialist $specialist)
-    {
-        $specialist->name = $request->name;
-        $specialist->surname = $request->surname;
-        // $specialist->beautySalons = $request->beautySalons;
-        $specialist->save();
+{
+    $validator = Validator::make($request->all(), [
+        'name' => 'required|min:3|max:20',
+        'surname' => 'required|min:3|max:20',
+        'beauty_salon_id' => 'nullable|exists:beauty_salons,id',
+        'service_title' => 'nullable|exists:services,service_title',
+    ]);
+
+    if ($validator->fails()) {
+        $request->flash();
         return redirect()
-            ->route('specialist-index')
-            ->with('ok', 'The specialist was edited');
+            ->back()
+            ->withErrors($validator);
     }
+
+    $specialist->name = $request->name;
+    $specialist->surname = $request->surname;
+    $specialist->beauty_salon_id = $request->beauty_salon_id;
+    $specialist->save();
+
+    return redirect()
+        ->route('specialist-index')
+        ->with('ok', 'The specialist was edited');
+}
+
 
     public function destroy(Specialist $specialist)
     {

@@ -12,51 +12,228 @@
     display: flex;
     align-items: center;
     position: relative;
+
     [type=checkbox]+.star {
         position: relative;
-        font-size: 30px;
+        font-size: 25px;
         color: crimson;
         cursor: pointer;
         user-select: none;
         width: 25px;
-        top: -25px;
+        top: -22px;
+
         &:after {
             position: absolute;
-
             content: '\2606'
         }
     }
+
     [type=checkbox]:checked+.star {
         &:after {
             content: '\2605'
         }
     }
+
     [type=checkbox]+.star.half {
         width: 25px;
+
         &:before {
             content: '\2606';
             position: absolute;
         }
+
         &:after {
             content: '\2605';
             width: 12px;
             overflow: hidden;
         }
     }
+
     [type=checkbox] {
         display: none;
     }
+
     .result {
-        font-size: 18px;
+        font-size: 15px;
         font-weight: bold;
-        padding: 0 16px;
+        padding: 0 10px;
+
         span {
-            font-size: 14px;
+            font-size: 12px;
             font-weight: normal;
         }
     }
+
     .btn {
+        font-size: 13px;
         background-color: transparent;
-        padding: 5px 10px;
+        padding: 3px 5px;
+    }
+}
+
+// CLIENT-SALON-INDEX
+
+.salon-card {
+    max-width: 80vw;
+    margin-left: 10vw;
+    height: 50vh;
+
+    .salon-img {
+        width: 400px;
+        height: 400px;
+        object-fit: contain;
+    }
+
+    .card-body {
+        display: flex;
+        gap: 5%;
+        margin: 10px;
+
+        .salon-info {
+            width: 45%;
+            background-color: bisque;
+        }
+
+        .salon-spec {
+            width: 45%;
+            background-color: rgb(241, 195, 139);
+        }
+    }
+
+    .buttons {
+        background-color: aqua;
+        display: flex;
+        margin-top: 10%;
+        width: 35%;
+        margin-left: auto;
+    }
+}
+
+// CLIENT-SERVICE-INDEX
+.service-card {
+    max-width: 80vw;
+    margin-left: 10vw;
+    padding: 20px;
+
+    .col-md-8 {
+        display: flex;
+        width: 100%;
+        position: relative;
+
+        .service-title {
+            width: 60%;
+            height: 45%;
+        }
+
+        .specialists {
+            width: 35%;
+            background-color: aqua;
+            margin-left: auto;
+
+            li {
+                display: flex;
+                gap: 15px;
+                align-items: center;
+            }
+        }
+    }
+
+    .details {
+        background-color: indianred;
+        position: absolute;
+        bottom: 10px;
+    }
+
+    .description {
+        background-color: darkseagreen;
+        width: 55%;
+        position: absolute;
+        top: 90px;
+    }
+
+    .cart {
+        position: absolute;
+        bottom: 10px;
+        right: 15px;
+    }
+
+    .buttons {
+        background-color: rgb(255, 174, 93);
+        display: flex;
+        margin-top: 10%;
+        width: 35%;
+        margin-left: auto;
+    }
+}
+
+// CLIENT-SPECIALIST-INDEX
+.specialist-card {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 85px;
+    margin: 5%;
+    // width: 20%;
+
+    .card {
+        // max-width: 30vw;
+        width: 25%;
+        height: 60vh;
+        margin-bottom: 15px;
+
+    }
+
+    .row {
+        background-color: aqua;
+        display: inline;
+
+        .profile-img {
+            background-color: rgb(239, 161, 58);
+            align-items: center;
+            width: 200px;
+            height: 200px;
+            object-fit: cover;
+            margin-left: calc(50% - 100px);
+            margin-right: calc(50% - 100px);
+        }
+
+        .col-md-8 {
+            width: 100%;
+
+            .card-body {
+                text-align: center;
+                background-color: darkcyan;
+            }
+        }
+    }
+
+}
+
+// SPECIALIST-SHOW
+
+.form {
+    width: 50vw;
+    margin-left: calc(50vw - 25%);
+    padding: 15px;
+    gap: 520px;
+    border: 1px solid black;
+    border-radius: 2em;
+    h4,
+    h5 {
+        margin-bottom: 15px;
+    }
+
+    .info {
+        float: left;
+        width: 45%;
+    }
+
+    .img {
+        background-color: coral;
+        width: 45%;
+        float: right;
+        width: 250px;
+        height: 250px;
+        object-fit: cover;
     }
 }
